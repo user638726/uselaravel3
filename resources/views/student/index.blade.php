@@ -28,9 +28,10 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th width="10%">ID</th>
-                    <th>NAME</th>
-                    <th>MOBILE</th>
+                    <th width="5%">ID</th>
+                    <th width="10%">NAME</th>
+                    <th width="20%">MOBILE</th>
+                    <th>OPT</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,6 +43,8 @@
                         <td>{{ $value->id }}</td>
                         <td>{{ $value->name }}</td>
                         <td>{{ $value->mobile }}</td>
+                        <td><a href="{{ route('students.edit', ['student' => $value->id]) }}"
+                                class="btn btn-warning">edit</a></td>
                     </tr>
                 @endforeach
 
@@ -55,6 +58,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action="{{ route('students.store') }}" method="post">
+
                     <!-- Modal Header -->
                     <div class="modal-header">
                         <h4 class="modal-title">Create Modal Heading</h4>
@@ -65,7 +69,7 @@
                     <div class="modal-body">
                         <div class="container mt-3">
 
-
+                            {{-- <form action="{{ //route('students.store') }}" method="post"> --}}
                             {{-- csrf --}}
                             @csrf
 
@@ -81,7 +85,7 @@
                             </div>
 
 
-
+                            {{-- </form> --}}
                         </div>
                     </div>
 
@@ -90,6 +94,7 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                     </div>
+
                 </form>
             </div>
         </div>
