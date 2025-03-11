@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Student;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Student;
 
 class StudentController extends Controller
 {
@@ -13,8 +14,10 @@ class StudentController extends Controller
     public function index()
     {
         // $users = DB::table('users')->get();
-        $data = DB::table('students')->get();
-        // dd($data[0]->name);
+        // $data = DB::table('students')->get();
+        $data = Student::get();
+        // dd($data);
+        // dd($data);
 
         return view('student.index', ['data' => $data]);
     }
@@ -24,6 +27,7 @@ class StudentController extends Controller
      */
     public function create()
     {
+        // dd('student controller create');
         return view('student.create');
     }
 
@@ -32,13 +36,22 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $input=$request->except('_token');
+        // dd($request);
+        $input = $request->except('_token');
+        // dd($input);
+
         $data = new Student;
 
-        $data->name=$input['name'];
-        $data->mobile=$input['mobile'];
+        // $data->name = $request->name;
+        // $data->mobile = $request->mobile;
+
+        $data->name = $input['name'];
+        $data->mobile = $input['mobile'];
+
         $data->save();
+
         return redirect()->route('students.index');
+        // return redirect('/students');
     }
 
     /**
@@ -54,7 +67,16 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
-        dd("hello $id edit");
+        // $url = route('students.edit', ['student' => $id]);
+        // dd($url);
+        // dd("hello edit $id");
+
+        // get fetchAll
+        // first fetch
+        $data = Student::where('id', $id)->first();
+        // dd($data);
+
+        return view('student.edit', ['data' => $data]);
     }
 
     /**
