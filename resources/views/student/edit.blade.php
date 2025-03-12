@@ -15,7 +15,7 @@
         <h2>Edit form</h2>
         @php
             // dd($data['name']);
-            // dd($data);
+            //dd($data);
         @endphp
 
         <form action="{{ route('students.update', ['student' => $data['id']]) }}" method="post">
@@ -33,6 +33,11 @@
                 <label for="mobile">Mobile:</label>
                 <input type="mobile" class="form-control" id="mobile" placeholder="Enter mobile" name="mobile"
                     value="{{ $data['mobile'] }}">
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="mobile">Phone:</label>
+                <input type="phone" class="form-control" id="phone" placeholder="Enter phone" name="phone"
+                    value="{{ $data['phone'] }}">
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>

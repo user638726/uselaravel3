@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Student;
+use App\Models\Phone;
 
 class StudentController extends Controller
 {
@@ -13,10 +14,14 @@ class StudentController extends Controller
      */
     public function index()
     {
+        // dd('student index ok');
         // $users = DB::table('users')->get();
         // $data = DB::table('students')->get();
-        $data = Student::get();
-        // dd($data);
+        // $data = Student::get();
+
+        // $phone = User::find(1)->phone;
+        $data = Student::with('phone')->get();
+        // dd($data[0]->phone);
         // dd($data);
 
         return view('student.index', ['data' => $data]);
@@ -40,18 +45,20 @@ class StudentController extends Controller
         $input = $request->except('_token');
         // dd($input);
 
+        // 主表
         $data = new Student;
-
-        // $data->name = $request->name;
-        // $data->mobile = $request->mobile;
-
         $data->name = $input['name'];
         $data->mobile = $input['mobile'];
-
         $data->save();
 
+        // 子表
+        $item = new Phone;
+        $item->student_id = $data->id;
+        $item->phone = $input['phone'];
+        $item->save();
+
+
         return redirect()->route('students.index');
-        // return redirect('/students');
     }
 
     /**
@@ -67,14 +74,7 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
-        // $url = route('students.edit', ['student' => $id]);
-        // dd($url);
-        // dd("hello edit $id");
-
-        // get fetchAll
-        // first fetch
-        $data = Student::where('id', $id)->first();
-        // dd($data);
+        $data = Student::where('id', $id)->with('phone')->first();
 
         return view('student.edit', ['data' => $data]);
     }
@@ -85,15 +85,22 @@ class StudentController extends Controller
     public function update(Request $request, string $id)
     {
         $input = $request->except('_token', '_method');
+
+        //主表
         $data = Student::where('id', $id)->first();
-        // $data = Student::find($id);
-
-        // "name" => "cat"
-        // "mobile" => "0933"
-
         $data->name = $input['name'];
         $data->mobile = $input['mobile'];
         $data->save();
+
+        //子表
+        // 刪除子表
+        Phone::where('student_id', $id)->delete();
+        // 新增子表
+        $item = new Phone;
+        $item->student_id = $data->id;
+        $item->phone = $input['phone'];
+        $item->save();
+
 
         return redirect()->route('students.index');
     }
@@ -103,9 +110,11 @@ class StudentController extends Controller
      */
     public function destroy(string $id)
     {
-        // dd("hello destroy $id");
-        $data = Student::where('id', $id)->first();
-        $data->delete();
+        // 刪除子表
+        Phone::where('student_id', $id)->delete();
+        // 刪除主表
+        Student::where('id', $id)->delete();
+
         return redirect()->route('students.index');
     }
 
