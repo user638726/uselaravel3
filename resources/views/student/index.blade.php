@@ -32,6 +32,7 @@
                     <th width="10%">NAME</th>
                     <th width="20%">MOBILE</th>
                     <th width="20%">PHONE</th>
+                    <th width="20%">HOBBIES</th>
                     <th>OPT</th>
                 </tr>
             </thead>
@@ -45,9 +46,10 @@
                         <td>{{ $value->name }}</td>
                         <td>{{ $value->mobile }}</td>
                         <td>
-                            {{ $value->phoneRelation->id ?? '' }}
-                            {{ $value->phoneRelation->student_id ?? '' }}
                             {{ $value->phoneRelation->phone ?? '' }}
+                        </td>
+                        <td>
+                            {{ $value->hobbiesRelation[0]->name ?? '' }}
                         </td>
                         <td>
                             <form action="{{ route('students.destroy', ['student' => $value->id]) }}" method="post">
@@ -98,7 +100,7 @@
                             </div>
 
                             <div class="mb-3 mt-3">
-                                <label for="phone">phone</label>
+                                <label for="phone">Mobile:</label>
                                 <input type="phone" class="form-control" id="phone" placeholder="Enter phone"
                                     name="phone">
                             </div>
