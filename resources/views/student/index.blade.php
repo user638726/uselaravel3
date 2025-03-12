@@ -97,7 +97,11 @@
                                     name="mobile">
                             </div>
 
-
+                            <div class="mb-3 mt-3">
+                                <label for="phone">phone</label>
+                                <input type="phone" class="form-control" id="phone" placeholder="Enter phone"
+                                    name="phone">
+                            </div>
                             {{-- </form> --}}
                         </div>
                     </div>

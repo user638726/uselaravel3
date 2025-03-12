@@ -20,7 +20,7 @@ class StudentController extends Controller
         // $data = Student::get();
 
         // $phone = User::find(1)->phone;
-        $data = Student::with('phone')->get();
+        $data = Student::with('phoneRelation')->get();
         // dd($data[0]->phone);
         // dd($data);
 
@@ -33,6 +33,7 @@ class StudentController extends Controller
     public function create()
     {
         // dd('student controller create');
+
         return view('student.create');
     }
 
@@ -43,7 +44,7 @@ class StudentController extends Controller
     {
         // dd($request);
         $input = $request->except('_token');
-        // dd($input);
+        //dd(input)
 
         // 主表
         $data = new Student;
@@ -74,7 +75,7 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
-        $data = Student::where('id', $id)->with('phone')->first();
+        $data = Student::where('id', $id)->with('phoneRelation')->first();
 
         return view('student.edit', ['data' => $data]);
     }
