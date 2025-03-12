@@ -20,9 +20,30 @@ class StudentController extends Controller
         // $data = Student::get();
 
         // $phone = User::find(1)->phone;
-        $data = Student::with('phoneRelation')->get();
-        // dd($data[0]->phone);
+        $data = Student::with('phoneRelation')->with('hobbiesRelation')->get();
+        // dd($data[0]->phoneRelation);
+        // dd($data[0]->hobbiesRelation[0]->name);
+        // dd($data[0]);
+
+        // $data foreach
+        foreach ($data as $key1 => $value1) {
+            $tmpArr = [];
+            foreach ($value1->hobbiesRelation as $key2 => $value2) {
+                array_push($tmpArr, $value2->name);
+            }
+            $tmpString = implode(',', $tmpArr);
+            // $data[$key1]['hobbies'] = $tmpString;
+            $data[$key1]['hobbyString'] = $tmpString;
+        }
+
         // dd($data);
+
+        // dd($tmpString);
+
+
+        // dd($tmpArr);
+
+        // $myArr = ['s14-01','s14-02'];
 
         return view('student.index', ['data' => $data]);
     }
@@ -33,7 +54,6 @@ class StudentController extends Controller
     public function create()
     {
         // dd('student controller create');
-
         return view('student.create');
     }
 
@@ -44,7 +64,7 @@ class StudentController extends Controller
     {
         // dd($request);
         $input = $request->except('_token');
-        //dd(input)
+        // dd($input);
 
         // 主表
         $data = new Student;
