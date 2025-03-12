@@ -98,6 +98,19 @@
                                 <input type="mobile" class="form-control" id="mobile" placeholder="Enter mobile"
                                     name="mobile">
                             </div>
+                            <div>
+                                <label for="phone">phone:</label>
+                                <input type="phone" class="form-control" id="phone" placeholder="Enter phone"
+                                    name="phone">
+
+                            </div>
+                            <div>
+                                <label for="hobbies">Hobbies</label>
+                                <input type="hobbies" class="form-control" id="hobbies" placeholder="Enter hobbies"
+                                    name="hobbies">
+
+                            </div>
+
 
 
                             {{-- </form> --}}

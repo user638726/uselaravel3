@@ -39,6 +39,11 @@
                 <input type="phone" class="form-control" id="phone" placeholder="Enter phone" name="phone"
                     value="{{ $data['phone'] }}">
             </div>
+            <div class="mb-3 mt-3">
+                <label for="hobbies">Phone:</label>
+                <input type="hobbies" class="form-control" id="hobbies" placeholder="Enter hobbies" name="hobbies"
+                    value="{{ $data['hobbies'] }}">
+            </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
